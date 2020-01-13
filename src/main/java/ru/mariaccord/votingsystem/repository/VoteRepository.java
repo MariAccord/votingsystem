@@ -8,7 +8,6 @@ import ru.mariaccord.votingsystem.model.User;
 import ru.mariaccord.votingsystem.model.Vote;
 import ru.mariaccord.votingsystem.to.RestaurantVotesTo;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

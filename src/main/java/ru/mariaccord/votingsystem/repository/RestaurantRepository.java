@@ -9,11 +9,5 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
 
-    Restaurant save(Restaurant restaurant);
-
-    boolean delete(int id);
-
-    Restaurant get(int id);
-
-    List<Restaurant> getAll();
+    public List<Restaurant> findAllByEnabled();
 }

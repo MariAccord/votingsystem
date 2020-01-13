@@ -14,6 +14,14 @@ public class Restaurant extends AbstractBaseEntity {
     @Column(name = "name", nullable = false)
     protected String name;
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Column(name = "enabled", nullable = false)
     private boolean enabled = true;
 

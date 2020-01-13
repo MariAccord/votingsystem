@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.mariaccord.votingsystem.model.Restaurant;
 import ru.mariaccord.votingsystem.repository.RestaurantRepository;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 public class RestaurantService {
@@ -28,5 +30,16 @@ public class RestaurantService {
                 .orElseThrow(() -> new RuntimeException("Can`t find restaurant by id = " + restaurantId));
     }
 
+    @Transactional
+    public void delete(int restaurantId){
+        getById(restaurantId).setEnabled(false);
+    }
 
+    @Transactional
+    public List<Restaurant> getAll(){
+        return restaurantRepository.findAllByEnabled();
+    }
+
+    @Transactional
+    public getMenu
 }

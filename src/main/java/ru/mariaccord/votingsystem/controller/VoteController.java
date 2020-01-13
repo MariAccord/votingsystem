@@ -9,35 +9,27 @@ import ru.mariaccord.votingsystem.model.Meal;
 import ru.mariaccord.votingsystem.model.Restaurant;
 import ru.mariaccord.votingsystem.model.Vote;
 import ru.mariaccord.votingsystem.service.VoteService;
+import ru.mariaccord.votingsystem.to.RestaurantVotesTo;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/rest/users")
+@RequestMapping(value = "/voting")
 public class VoteController {
 
     @Autowired
-    private VoteService service;
-
-    @GetMapping("/id")
-    public List<Restaurant> getAll()
-    {
-        return service.getAll();
-    }
-
-    @GetMapping("/menu")
-    public List<Meal> getAll(int restrauntId) {
-        return service.getAll();
-    }
+    private VoteService voteService;
 
     @GetMapping("/rating")
-    public Map<Restaurant, Integer> getRating(){
-        return service.getRating;
+    public List<RestaurantVotesTo> getRating(LocalDate date){
+
+        return voteService.getRating(date);
     }
 
     @PostMapping("/vote")
-    public void vote(){
-        
+    public void vote(int restaurantId, int userId){
+        voteService.makeVote(restaurantId, userId);
     }
 }

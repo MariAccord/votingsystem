@@ -25,8 +25,8 @@ public class AdminService {
     }
 
     @Transactional
-    public void createMenu(MenuTo menuTo){
-        Restaurant restaurant = restaurantService.getById(menuTo.getRestaurantId());
+    public List<Meal> createMenu(MenuTo menuTo, int restaurantId){
+        Restaurant restaurant = restaurantService.getById(restaurantId);
 
         mealRepository.deleteAllByDateAndRestaurant(menuTo.getDate(), restaurant);
 
@@ -39,6 +39,6 @@ public class AdminService {
                     meal.setRestaurant(restaurant);
                     return meal;
                 }).collect(Collectors.toList());
-        mealRepository.saveAll(meals);
+        return mealRepository.saveAll(meals);
     }
 }

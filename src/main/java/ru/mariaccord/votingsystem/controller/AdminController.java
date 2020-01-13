@@ -1,14 +1,13 @@
 package ru.mariaccord.votingsystem.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.mariaccord.votingsystem.model.Meal;
 import ru.mariaccord.votingsystem.model.Restaurant;
 import ru.mariaccord.votingsystem.service.AdminService;
+import ru.mariaccord.votingsystem.service.RestaurantService;
 import ru.mariaccord.votingsystem.service.UserService;
+import ru.mariaccord.votingsystem.to.MenuTo;
 
 import java.util.List;
 
@@ -19,19 +18,22 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @PostMapping("/new")
+    @Autowired
+    private RestaurantService restaurantService;
+
+    @PostMapping("/restaurant/new")
     public Restaurant createNewRestaurant(Restaurant restaurant) {
 
-        return null;
+        return restaurantService.createRestaurant(restaurant);
     }
 
-    @PostMapping("/menu")
-    public List<Meal> createNewMenu(int id, Meal meal) {
-        return
+    @PostMapping("/restaurant/{restaurantId}/menu/new")
+    public List<Meal> createMenu(@RequestBody MenuTo menuTo, @RequestParam int restaurantId) {
+        return adminService.createMenu(menuTo, restaurantId);
     }
 
     @PostMapping("/delete")
-    public void deleteRestaurant(int id){
-
+    public void deleteRestaurant(int restaurantId){
+        restaurantService.delete(restaurantId);
     }
 }
