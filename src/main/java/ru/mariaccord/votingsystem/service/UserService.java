@@ -1,63 +1,53 @@
 package ru.mariaccord.votingsystem.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.mariaccord.votingsystem.model.User;
 import ru.mariaccord.votingsystem.repository.UserRepository;
+
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository repository) {
-        this.userRepository = repository;
+    @Autowired
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
-    public User create(User user) {
-
-        return null;
+    public boolean create(User user) {
+        Optional<User> userFromDb = userRepository.findByName(user.getName());
+        if (userFromDb.isPresent()) {
+            return false;
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+        return true;
     }
 
-    @Transactional
-    public void delete(int id) {
-
-        userRepository.delete(id);
+    public User getById(int id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("Can't find user by id " + id));
     }
 
-    @Transactional
-    public User get(int id) {
-
-        return userRepository.get(id);
-    }
-
-    @Transactional
-    public void update(User user){
-
-    }
-
-    @Transactional
-    public void enable(int id, boolean enabled){
-        User user = get(id);
-        user.setEnabled(enabled);
-    }
-
-    @Transactional
-    public User getById(int userId){
-
-        return userRepository.get(userId);
+    public User getByName(String name) {
+        return userRepository.findByName(name)
+                .orElseThrow(() -> new UsernameNotFoundException("Can't find user by name " + name));
     }
 
     @Override
-    public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = repository.getByEmail(email.toLowerCase());
-        if (user == null) {
-            throw new UsernameNotFoundException("User " + email + " is not found");
-        }
-        return new AuthorizedUser(user);
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+      return getByName(s);
     }
 }

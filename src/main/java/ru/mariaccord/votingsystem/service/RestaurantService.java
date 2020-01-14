@@ -43,7 +43,7 @@ public class RestaurantService {
 
     @Transactional
     public List<Restaurant> getAll(){
-        return restaurantRepository.findAllByEnabled();
+        return restaurantRepository.findAllByEnabledIsTrue();
     }
 
     @Transactional

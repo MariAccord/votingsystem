@@ -9,5 +9,5 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
 
-    public List<Restaurant> findAllByEnabled();
+    public List<Restaurant> findAllByEnabledIsTrue();
 }

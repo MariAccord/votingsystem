@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.mariaccord.votingsystem.model.Restaurant;
 import ru.mariaccord.votingsystem.model.User;
 import ru.mariaccord.votingsystem.model.Vote;
+import ru.mariaccord.votingsystem.model.VoteResult;
 import ru.mariaccord.votingsystem.to.RestaurantVotesTo;
 
 import java.time.LocalDateTime;
@@ -23,5 +24,5 @@ public interface VoteRepository extends JpaRepository<Vote, Integer> {
             "    AND votes.date_time BETWEEN :startTime AND :endTime\n" +
             "GROUP BY restaurants.id\n" +
             "ORDER BY count DESC")
-    public List<RestaurantVotesTo> getRating(LocalDateTime startTime, LocalDateTime endTime);
+    public List<VoteResult> getRating(LocalDateTime startTime, LocalDateTime endTime);
 }

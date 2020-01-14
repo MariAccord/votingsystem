@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static ru.mariaccord.votingsystem.model.VoteStatus.*;
 
@@ -25,7 +26,7 @@ public class VoteService {
     private final VoteRepository voteRepository;
     private final RestaurantService restaurantService;
     private final UserService userService;
-    private final LocalTime REVOTE_END_TIME = LocalTime.of(11, 00, 00);
+    private final LocalTime REVOTE_END_TIME = LocalTime.of(11, 0, 0);
 
     public VoteService(VoteRepository repository, RestaurantService restaurantService, UserRepository userRepository, UserService userService) {
         this.voteRepository = repository;
@@ -34,9 +35,9 @@ public class VoteService {
     }
 
     @Transactional
-    public VoteStatus makeVote(int restaurantId, int userId) {
+    public VoteStatus makeVote(int restaurantId, String userName) {
         Restaurant restaurant = restaurantService.getById(restaurantId);
-        User user = userService.getById(userId);
+        User user = userService.getByName(userName);
         Optional<Vote> voteOfDay = voteRepository.findByUserAndDateTimeAfter(user, LocalDate.now().atStartOfDay());
         if (voteOfDay.isPresent()) {
             if (LocalTime.now().isAfter(REVOTE_END_TIME)) {
@@ -54,6 +55,15 @@ public class VoteService {
 
     @Transactional
     public List<RestaurantVotesTo> getRating(LocalDate date) {
-        return voteRepository.getRating(date.atStartOfDay(), date.plusDays(1L).atStartOfDay());
+        return voteRepository.getRating(date.atStartOfDay(), date.plusDays(1L).atStartOfDay())
+                .stream()
+                .map(e -> {
+                    RestaurantVotesTo restaurantVotesTo = new RestaurantVotesTo();
+                    restaurantVotesTo.setId(e.getId());
+                    restaurantVotesTo.setCount(e.getCount());
+                    restaurantVotesTo.setName(e.getName());
+                    return restaurantVotesTo;
+                })
+                .collect(Collectors.toList());
     }
 }

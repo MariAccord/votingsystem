@@ -3,16 +3,15 @@ package ru.mariaccord.votingsystem.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Entity
 @Table(name = "restaurants")
 public class Restaurant extends AbstractBaseEntity {
 
-    @NotBlank
+    @NotBlank(message = "Поле 'имя ресторана' не может быть пустым")
     @Size(min = 2, max = 100)
     @Column(name = "name", nullable = false)
-    protected String name;
+    private String name;
 
     public boolean isEnabled() {
         return enabled;
@@ -31,5 +30,14 @@ public class Restaurant extends AbstractBaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "name='" + name + '\'' +
+                ", enabled=" + enabled +
+                ", id=" + id +
+                '}';
     }
 }
