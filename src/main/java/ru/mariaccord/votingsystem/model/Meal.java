@@ -22,7 +22,7 @@ public class Meal extends AbstractBaseEntity {
     @Range(min = 50, max = 2000)
     private BigDecimal price;
 
-    @Column(name = "date", nullable = false)
+    @Column(name = "date", nullable = false )
     @NotNull
     private LocalDate date;
 
