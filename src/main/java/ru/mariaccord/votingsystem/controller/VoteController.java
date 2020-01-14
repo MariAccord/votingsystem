@@ -10,9 +10,12 @@ import ru.mariaccord.votingsystem.security.SecurityUtil;
 import ru.mariaccord.votingsystem.service.RestaurantService;
 import ru.mariaccord.votingsystem.service.VoteService;
 import ru.mariaccord.votingsystem.to.MealTo;
+import ru.mariaccord.votingsystem.to.MenuTo;
 import ru.mariaccord.votingsystem.to.RestaurantVotesTo;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -48,7 +51,6 @@ public class VoteController {
     {
         return restaurantService.getAll();
     }
-
 
     @GetMapping("/{restaurantId}/menu")
     public List<MealTo> getMenu(@PathVariable int restaurantId) {
