@@ -36,11 +36,6 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    public User getById(int id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new UsernameNotFoundException("Can't find user by id " + id));
-    }
-
     public User getByName(String name) {
         return userRepository.findByName(name)
                 .orElseThrow(() -> new UsernameNotFoundException("Can't find user by name " + name));

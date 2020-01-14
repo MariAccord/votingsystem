@@ -32,8 +32,7 @@ public class RestaurantService {
 
     @Transactional
     public Restaurant getById(int restaurantId){
-        return restaurantRepository.findById(restaurantId)
-                .orElseThrow(() -> new RuntimeException("Can`t find restaurant by id = " + restaurantId));
+        return restaurantRepository.getOne(restaurantId);
     }
 
     @Transactional
