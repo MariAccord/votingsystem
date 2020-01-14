@@ -30,7 +30,7 @@ public class AdminController {
         return restaurantService.createRestaurant(restaurant);
     }
 
-    @PostMapping("/restaurant/{restaurantId}/menu/new")
+    @PostMapping(value = "/restaurant/{restaurantId}/menu/new", consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<Meal> createMenu(@RequestBody MenuTo menuTo, @PathVariable int restaurantId) {
         return adminService.createMenu(menuTo, restaurantId);
     }
