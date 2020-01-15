@@ -14,7 +14,10 @@ Each restaurant provides new menu each day.
 
 ### URL for Admin
 
-create new restaurant, JSON, example `{"name": "Кафе"}` :
+create new restaurant, JSON, example
+
+ `{"name": "Кафе"}` 
+ 
 `http://localhost:8080/rest/admin/restaurant/new`
 
 create menu for restaurant, JSON, example 
@@ -31,18 +34,23 @@ create menu for restaurant, JSON, example
 `http://localhost:8080/rest/admin//restaurant/{restaurantId}/menu/new`
 
 delete restaurant by id
+
 `http://localhost:8080/rest/admin/{restaurantId}/delete`
 
 ### URL for User
 
 get all restaurants 
+
 `http://localhost:8080/rest/restaurant/`
 
 vote (by restaurant id)
+
 `http://localhost:8080/rest/restaurant/{restaurantId}/vote`
 
 get menu (by restaurant id)
+
 `http://localhost:8080/rest/restaurant/{restaurantId}/menu"`
 
 get rating
+
 `http://localhost:8080/rest/restaurant/rating`
