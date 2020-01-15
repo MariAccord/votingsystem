@@ -14,13 +14,37 @@ Each restaurant provides new menu each day.
 
 ### URL for Admin
 
-create new restaurant, JSON, example
+create new restaurant
+ 
+ POST `http://localhost:8080/rest/admin/restaurant/new`
+
+Request Body, template
+
+`{"name": [restaurantName]}` 
+
+example JSON
 
  `{"name": "Кафе"}` 
  
-`http://localhost:8080/rest/admin/restaurant/new`
+create menu for restaurant
 
-create menu for restaurant, JSON, example 
+POST `http://localhost:8080/rest/admin//restaurant/{restaurantId}/menu/new`
+
+Request Body, template
+
+``` 
+{"meals":
+[
+{"name":[itemName1],"price": [itemPrice1]}, 
+{"name":[itemName2],"price": [itemPrice2]}, 
+.....
+{"name":[itemNameN],"price": [itemPriceN]}
+],
+"date":[yyyy-MM-dd]}
+``` 
+
+example JSON
+
 ``` 
 {"meals":
 [
@@ -31,26 +55,32 @@ create menu for restaurant, JSON, example
 "date":"2020-01-14"}
 ``` 
 
-`http://localhost:8080/rest/admin//restaurant/{restaurantId}/menu/new`
-
 delete restaurant by id
 
-`http://localhost:8080/rest/admin/{restaurantId}/delete`
+POST `http://localhost:8080/rest/admin/{restaurantId}/delete`
 
 ### URL for User
 
 get all restaurants 
 
-`http://localhost:8080/rest/restaurant/`
-
-vote (by restaurant id)
-
-`http://localhost:8080/rest/restaurant/{restaurantId}/vote`
+GET `http://localhost:8080/rest/restaurant/`
 
 get menu (by restaurant id)
 
-`http://localhost:8080/rest/restaurant/{restaurantId}/menu"`
+GET `http://localhost:8080/rest/restaurant/{restaurantId}/menu"`
 
-get rating
+get rating (by date)
 
-`http://localhost:8080/rest/restaurant/rating`
+GET `http://localhost:8080/rest/restaurant/rating[date]`
+
+Request Parameter "date" is optional and it points what date the rating will be show for.
+If "date" is not present, date will be "today" by default.
+
+example `http://localhost:8080/rest/restaurant/rating?date=2020-01-16`
+
+example `http://localhost:8080/rest/restaurant/rating`
+
+
+vote (by restaurant id)
+
+POST `http://localhost:8080/rest/restaurant/{restaurantId}/vote`
