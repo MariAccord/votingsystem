@@ -3,19 +3,14 @@ package ru.mariaccord.votingsystem.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import ru.mariaccord.votingsystem.model.Meal;
 import ru.mariaccord.votingsystem.model.Restaurant;
-import ru.mariaccord.votingsystem.model.Vote;
 import ru.mariaccord.votingsystem.security.SecurityUtil;
 import ru.mariaccord.votingsystem.service.RestaurantService;
 import ru.mariaccord.votingsystem.service.VoteService;
 import ru.mariaccord.votingsystem.to.MealTo;
-import ru.mariaccord.votingsystem.to.MenuTo;
 import ru.mariaccord.votingsystem.to.RestaurantVotesTo;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
