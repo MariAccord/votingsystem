@@ -26,6 +26,8 @@ example JSON
 
  `{"name": "Кафе"}` 
  
+ ____________________________
+ 
 create menu for restaurant
 
 POST `http://localhost:8080/rest/admin//restaurant/{restaurantId}/menu/new`
@@ -55,6 +57,7 @@ example JSON
 "date":"2020-01-14"}
 ``` 
 
+____________
 delete restaurant by id
 
 POST `http://localhost:8080/rest/admin/{restaurantId}/delete`
@@ -65,10 +68,12 @@ get all restaurants
 
 GET `http://localhost:8080/rest/restaurant/`
 
+__________
 get menu (by restaurant id)
 
 GET `http://localhost:8080/rest/restaurant/{restaurantId}/menu"`
 
+_______________
 get rating (by date)
 
 GET `http://localhost:8080/rest/restaurant/rating[date]`
@@ -80,6 +85,7 @@ example `http://localhost:8080/rest/restaurant/rating?date=2020-01-16`
 
 example `http://localhost:8080/rest/restaurant/rating`
 
+__________________
 
 vote (by restaurant id)
 
